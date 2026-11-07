@@ -1,0 +1,30 @@
+﻿name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.10", "3.11", "3.12"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install
+        run: |
+          python -m pip install --upgrade pip
+          pip install cryptography
+      - name: Tests
+        run: python -m unittest discover -s tests -v
+      - name: Smoke run
+        run: |
+          python -m licensekit.cli init --data /tmp/data
+          python -m licensekit.cli issue --data /tmp/data -n 1 --plan pro --out /tmp/cards.txt
+          test -s /tmp/cards.txt

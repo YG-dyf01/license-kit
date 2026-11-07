@@ -1,0 +1,32 @@
+# ---- 私钥与运行数据：绝对不要提交 ----
+data/
+*.pem
+*.key
+*.p12
+*.jks
+*.db
+*.db-wal
+*.db-shm
+config.json
+cards*.txt
+license_state.json
+
+# ---- Python ----
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.venv/
+venv/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+
+# ---- 编辑器 / 系统 ----
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+*.log
+srv.out*
